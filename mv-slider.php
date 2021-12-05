@@ -38,8 +38,13 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
          function __construct(){
             $this->define_constants();
 
+            add_action( 'admin_menu', array( $this, 'add_menu' ) );
+
             require_once( MV_SLIDER_PATH . 'post-types/class.mv-slider-cpt.php' );
             $MV_Slider_Post_Type = new MV_Slider_post_type();
+
+            require_once( MV_SLIDER_PATH. 'class.mv-slider-settings.php' );
+            $MV_Slider_settings = new MV_Slider_Settings();
 
          }
 
@@ -61,6 +66,50 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 
          public static function uninstall(){
 
+         }
+
+         public function add_menu(){
+             add_menu_page( 
+                 'MV Slider Options',
+                 'MV Slider',
+                 'manage_options',
+                 'mv_slider_admin',
+                 array( $this, 'mv_slider_settings_page' ),
+                 'dashicons-images-alt2',
+              );
+
+              add_submenu_page(
+                  'mv_slider_admin',
+                  'Manage slides',
+                  'Manage slides',
+                  'manage_options',
+                  'edit.php?post_type=mv-slider',
+                  null,
+                  null
+              );
+
+              add_submenu_page(
+                  'mv_slider_admin',
+                  'Add new slide',
+                  'Add new Slide',
+                  'manage_options',
+                  'post-new.php?post_type=mv-slider',
+                  null,
+                  null
+              );
+
+         }
+
+         public function mv_slider_settings_page(){
+             if( ! current_user_can( 'manage_options' ) ){
+                 return;
+             }
+             if( isset( $_GET['settings-updated'] ) ){
+                 add_settings_error( 'mv_slider_options', 'mv_slider_message', 'Settings Saved', 'success' );
+             }
+             settings_errors( 'mv_slider_options' );
+
+             require( MV_SLIDER_PATH . 'views/settings-page.php' );
          }
 
 
