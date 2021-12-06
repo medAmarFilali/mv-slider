@@ -64,8 +64,8 @@ if( ! class_exists('MV_Slider_exists') ){
                 'mv_slider_second_section',
                 array(
                     'items' => array(
-                        'slider-1',
-                        'slider-2'
+                        'style-1',
+                        'style-2'
                     ),
                     'label_for' => 'mv_slider_style'
                 )
