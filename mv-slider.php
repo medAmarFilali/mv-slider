@@ -65,11 +65,11 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 
          public static function activate(){
             update_option( 'rewrite_rules', '' );
-            unregister_post_type( 'mv-slider' );
-         }
-
-         public static function deactivate(){
+        }
+        
+        public static function deactivate(){
             flush_rewrite_rules();
+            unregister_post_type( 'mv-slider' );
          }
 
          public static function uninstall(){
