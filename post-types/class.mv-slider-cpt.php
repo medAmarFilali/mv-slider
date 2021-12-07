@@ -76,8 +76,8 @@ if( !class_exists( 'MV_Slider_post_type' ) ){
         }
 
         public function save_post( $post_id ){
-            if( isset( $_POST['wp_slider_nonce'] ) ){
-                if( ! wp_verify_nonce( $_POST['wp_slider_nonce'] ,'wp_slider_nonce' ) ){
+            if( isset( $_POST['mv_slider_nonce'] ) ){
+                if( ! wp_verify_nonce( $_POST['mv_slider_nonce'] ,'mv_slider_nonce' ) ){
                     return;
                 }
             }
