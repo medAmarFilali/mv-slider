@@ -13,11 +13,11 @@ if( !class_exists( 'MV_Slider_post_type' ) ){
     
         public function create_post_type(){
             register_post_type('mv-slider', array(
-                'label' => 'Slider',
-                'description' => 'Image Slider',
+                'label' => esc_html__( 'Slider', 'mv-slider' ),
+                'description' => esc_html__('Image Slider', 'mv-slider'),
                 'labels' => array(
-                    'name' => 'Sliders',    
-                    'singular_name' => 'Slider'
+                    'name' => esc_html__('Sliders', 'mv-slider'),    
+                    'singular_name' => esc_html__('Slider', 'mv-slider')
                 ),
                 'public' => true,
                 'supports' => array( 'title', 'editor', 'thumbnail' ),
@@ -40,7 +40,7 @@ if( !class_exists( 'MV_Slider_post_type' ) ){
         public function add_meta_boxes(){
             add_meta_box(
                 'mv_slider_meta_box',
-                'Link Options',
+                esc_html__('Link Options', 'mv-slider'),
                 array( $this, 'add_inner_meta_boxes' ),
                 'mv-slider',
                 'normal',

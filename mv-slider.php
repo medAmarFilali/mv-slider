@@ -38,6 +38,8 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
          function __construct(){
             $this->define_constants();
 
+            $this->load_textdomain();
+
             add_action( 'admin_menu', array( $this, 'add_menu' ) );
 
             require_once( MV_SLIDER_PATH . 'post-types/class.mv-slider-cpt.php' );
@@ -68,17 +70,24 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 
          public static function deactivate(){
             flush_rewrite_rules();
-
          }
 
          public static function uninstall(){
 
          }
 
+         public function load_textdomain(){
+            load_plugin_textdomain( 
+                'mv-slider', 
+                false, 
+                dirname( plugin_basename( __FILE__ ) )  . '/languanges/'
+            );
+         }
+
          public function add_menu(){
              add_menu_page( 
-                 'MV Slider Options',
-                 'MV Slider',
+                 esc_html__( 'MV Slider Options', 'mv-slider' ),
+                 esc_html__( 'MV Slider', 'mv-slider' ),
                  'manage_options',
                  'mv_slider_admin',
                  array( $this, 'mv_slider_settings_page' ),
@@ -87,8 +96,8 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 
               add_submenu_page(
                   'mv_slider_admin',
-                  'Manage slides',
-                  'Manage slides',
+                  esc_html__( 'Manage slides', 'mv-slider' ),
+                  esc_html__( 'Manage slides', 'mv-slider' ),
                   'manage_options',
                   'edit.php?post_type=mv-slider',
                   null,
@@ -97,8 +106,8 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 
               add_submenu_page(
                   'mv_slider_admin',
-                  'Add new slide',
-                  'Add new Slide',
+                  esc_html__( 'Add new slide', 'mv-slider' ),
+                  esc_html__( 'Add new Slide', 'mv-slider' ),
                   'manage_options',
                   'post-new.php?post_type=mv-slider',
                   null,
@@ -112,7 +121,7 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
                  return;
              }
              if( isset( $_GET['settings-updated'] ) ){
-                 add_settings_error( 'mv_slider_options', 'mv_slider_message', 'Settings Saved', 'success' );
+                 add_settings_error( 'mv_slider_options', 'mv_slider_message', __( 'Settings Saved', 'mv-slider'), 'success' );
              }
              settings_errors( 'mv_slider_options' );
 
