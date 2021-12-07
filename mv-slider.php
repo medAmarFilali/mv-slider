@@ -73,6 +73,19 @@ along with MV Slider. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
          }
 
          public static function uninstall(){
+             delete_options( 'mv_slider_options' );
+
+             $posts = get_post(
+                 array(
+                     'post_type' => 'mv-slider',
+                     'number_posts' => -1,
+                     'post_status' => 'any'
+                 )
+                 );
+
+            foreach( $posts as $post ) {
+                wp_delete_post( $post->ID, true );
+            }
 
          }
 
